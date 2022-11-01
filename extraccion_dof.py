@@ -122,10 +122,6 @@ class extraccion():
         
         for ciclo in range(self.conteo):
             consulta_links
-            # Si no encuentra coincidencia del link en la base de datos se considera nueva y se almacena en una nueva lista
-            if bool(self.valores) == False:
-                self.lst_nva_pub.append(self.lst_link_dominio[self.cont_link_dominio])
-
             self.cont_link_dominio+=1
 
         #Insercion de valores en la base de datos
