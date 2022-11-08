@@ -6,7 +6,9 @@ from datetime import datetime
 from msilib.schema import Property
 from bs4 import BeautifulSoup
 import re 
-'''importamos para envios de correos '''
+'''
+    importamos para envios de correos
+'''
 import smtplib 
 from email.message import EmailMessage 
 
@@ -40,7 +42,7 @@ class extraccion():
         '''
         
         try:
-            self.datos = urllib.request.urlopen("https://www.dof.gob.mx/index_111.php?year=2022&month=08&day=30#gsc.tab=0").read().decode()
+            self.datos = urllib.request.urlopen("https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0").read().decode()
             print("Conexion a la pagina web establecida")
         except urllib.error.URLerror as e:
             print(f"Error al intentar acceder a la pagina web: {e}")
@@ -74,7 +76,7 @@ class extraccion():
         #Recupera todos los link de las publicaciones y las almacena en una lista -links[]
         self.lst_links =[]
         self.lst_69B =[]
-        self.lst_link_dominio =[]
+        lst_link_dominio =[]
         x=0
         print ("Extrayendo links de publicaciones...")
         for ref in self.resultado:
@@ -98,42 +100,50 @@ class extraccion():
             characters = "[]'"
             cadena = ''.join( x for x in cadena if x not in characters)
             cal='https://www.dof.gob.mx'+cadena
-            self.lst_link_dominio.append(cal)
+            lst_link_dominio.append(cal)
             print(cal)
+        
+        return lst_link_dominio
             
 
     def fecha_actual(self):
         '''
         Función para obtener la fecha actual
         '''
-        self.today = datetime.now()
+        today = datetime.now()
         
-        
+        return today
+      
+      
     def validar_pub_nva(self):
         '''
         Función que valida si los links encontrados no se encuentran en la base de datos y 
         sean considerados como nuevas publicaciones
         '''
         # Validar si la publiacion es nueva o ya ha sido almacenada en la base de datos
+        # self.cont_link_dominio = 0
         self.cont_link_dominio = 0
-        self.lst_nva_pub=[]
+        self.lst_nva_pub = []
         self.cont_lig = 0
-        self.valores = ()
+        lst_link_dominio = self.obtener_link()
+        # today = datetime.now()
+        # self.valores = ()
         
         for ciclo in range(self.conteo):
-            consulta_links
+            
+            lst_nva_pub = consulta_links(self, self.lst_nva_pub, self.cont_link_dominio, lst_link_dominio)
             self.cont_link_dominio+=1
-
+        
         #Insercion de valores en la base de datos
-        for ciclo in self.lst_nva_pub:
-            insertar_links
+        for ciclo in lst_nva_pub:
+            insertar_links(self, lst_nva_pub, self.fecha_actual(), self.cont_lig)
             self.cont_lig+=1
         
         
 
         # Convertimos la lista de los links nuevos en cadena de texto
-        self.str_pubs_nva = ", \n ".join(self.lst_nva_pub)
-        print(f"links encontrados{self.str_pubs_nva}")
+        self.str_pubs_nva = ", \n ".join(lst_nva_pub)
+        # print(f"links encontrados{self.str_pubs_nva}")
 
     def notificacion_correo(self):
         '''
@@ -141,11 +151,14 @@ class extraccion():
         cuando termina de realizar la consulta en la página del DOF
         '''
         self.asunto_correo = "Publicaciones del Diario Oficial de la Federación" 
-        self.correo_remitente = "jnahuat@nasa.com.mx" 
-        self.correo_receptor = "frester_dui98@hotmail.com"
+        self.correo_remitente = "frester_dui98@hotmail.com" 
+        # self.correo_remitente = "jnahuat@nasa.com.mx"
+        self.correo_receptor = "oaguilar@nasa.com.mx"
+        # self.correo_receptor = "frester_dui98@hotmail.com"
         self.email_smtp = "smtp.office365.com" 
-        self.contrasena_correo = "stckrhhmhjxfqwgl" #contraseña aplicacion Nasa
-        #email_password = "poykyzptkdiihjhe" #contraseña aplicacion hotmail frester
+        # self.contrasena_correo = "stkqsdfppwkxgtnml"
+        # self.contrasena_correo = "stckrhhmhjxfqwgl" #contraseña aplicacion Nasa
+        self.contrasena_correo = "poykyzptkdiihjhe" #contraseña aplicacion hotmail frester
         
         self.mensaje = EmailMessage() 
         self.mensaje['Subject'] = self.asunto_correo 
@@ -154,6 +167,7 @@ class extraccion():
                 
         if bool(self.lst_nva_pub) == True:
             # Mensaje de texto que se enviará
+            print(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}")
             self.mensaje.set_content(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}") 
 
             try:
@@ -172,6 +186,7 @@ class extraccion():
                 print ('Error al intentar enviar el correo electronico, cuasa del error: ', e)
 
         if bool(self.lst_nva_pub) == False:
+            print("No se ha encontrado publicación nueva referente al articulo 69-B")
             self.mensaje.set_content("No se ha encontrado publicación nueva referente al articulo 69-B") 
 
             try:

@@ -1,8 +1,9 @@
 import mysql.connector
-# from extraccion_dof import extraccion
 
 class conexion_bd():
-    
+    '''
+    Clase que establece la conexión a la Base de datos 
+    '''
     def __init__(self):
         
         self.conexion=mysql.connector.connect(
@@ -16,10 +17,13 @@ class conexion_bd():
 
 
     def close_connection(self):
-        #Cerrar la conexión
-        #Envío de los valores a la base de datos
+        '''
+        Función que envia los datos a la Base de datos,
+        y cierra la conexion a la bd
+        '''
         self.conexion.commit()
         self.conexion.close()
+        
         print('Conexión a la base de datos cerrada exitosamente')
         print("Proceso finalizado")
 
