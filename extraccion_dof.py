@@ -1,6 +1,8 @@
 from ast import Try
-from weber_dao import *
+from weber_dao import manipulacion_bd
 
+from tkinter import *
+from prueba_gifs import aparecer_gifs
 import urllib.request
 from datetime import datetime
 from msilib.schema import Property
@@ -40,10 +42,13 @@ class extraccion():
         Función que establece la conexion con la página,
         leerá y decodificará la página 
         '''
+        lbl1 = Label(text="Conexion a la pagina web")
+        lbl1.grid(row=2,column=1,padx=1, pady=4, ipadx=20,ipady=3)
+        aparecer_gifs.aparecer_mensaje_2()
         
         try:
             self.datos = urllib.request.urlopen("https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0").read().decode()
-            print("Conexion a la pagina web establecida")
+            
         except urllib.error.URLerror as e:
             print(f"Error al intentar acceder a la pagina web: {e}")
             
@@ -58,8 +63,15 @@ class extraccion():
         self.box = self.soup.find('tr',id="trcontent")
         self.resultado = self.box.find_all('a',class_='enlaces')
         self.palabra = re.findall(r'69-B', str(self.resultado))
-        print("Buscando palabra clave")
-        print(self.palabra)
+        
+        lbl2 = Label(text="Obteniendo código fuente")
+        lbl2.grid(row=3,column=1,padx=1, pady=4, ipadx=20,ipady=3)
+        lbl3 = Label(text="Buscando palabra clave")
+        lbl3.grid(row=4,column=1,padx=1, pady=4, ipadx=20,ipady=3)
+
+        aparecer_gifs.aparecer_mensaje_3()
+        
+        #print(self.palabra)
         
         #Contar elementos
         self.transforma = ", ".join(map(str, self.palabra))
@@ -78,7 +90,13 @@ class extraccion():
         self.lst_69B =[]
         lst_link_dominio =[]
         x=0
-        print ("Extrayendo links de publicaciones...")
+    
+        lbl4 = Label(text="Extrayendo links de publicaciones...")
+        lbl4.grid(row=5,column=1,padx=1, pady=4, ipadx=20,ipady=3)
+
+        aparecer_gifs.aparecer_mensaje_4()
+
+
         for ref in self.resultado:
             tag=ref.get('href')+'\n'
             transforma="".join(map(str, tag))
@@ -131,14 +149,18 @@ class extraccion():
         
         for ciclo in range(self.conteo):
             
-            lst_nva_pub = consulta_links(self, self.lst_nva_pub, self.cont_link_dominio, lst_link_dominio)
+            lst_nva_pub = manipulacion_bd.consulta_links(self, self.lst_nva_pub, self.cont_link_dominio, lst_link_dominio)
             self.cont_link_dominio+=1
         
         #Insercion de valores en la base de datos
         for ciclo in lst_nva_pub:
-            insertar_links(self, lst_nva_pub, self.fecha_actual(), self.cont_lig)
+            manipulacion_bd.insertar_links(self, lst_nva_pub, self.fecha_actual(), self.cont_lig)
             self.cont_lig+=1
         
+        
+        label = Label(text="Guardando links en la base de datos")
+        label.grid(row=3,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+        aparecer_gifs.aparecer_mensaje_6()
         
 
         # Convertimos la lista de los links nuevos en cadena de texto
@@ -170,17 +192,26 @@ class extraccion():
             print(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}")
             self.mensaje.set_content(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}") 
 
+            lbl5 = Label(text="Conectando al servidor SMTP")
+            lbl5.grid(row=1,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+
+            lbl6 = Label(text="Correo electrónico enviado con éxito")
+            lbl6.grid(row=2,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+
+            aparecer_gifs.aparecer_mensaje_5()
             try:
                 # smtp servidor y puerto 
                 server = smtplib.SMTP('smtp.office365.com', port=587) 
                 server.ehlo() 
                 server.starttls() 
-                print("Conectando al sservidor SMTP")
+                #print("Conectando al servidor SMTP")
+
                 server.login(self.correo_remitente, self.contrasena_correo) 
                 server.send_message(self.mensaje) 
                 server.quit()
 
-                print('Correo electronico enviado con exito')
+                #print('Correo electronico enviado con exito')
+
                 
             except smtplib.SMTPException as e:
                 print ('Error al intentar enviar el correo electronico, cuasa del error: ', e)
@@ -189,16 +220,25 @@ class extraccion():
             print("No se ha encontrado publicación nueva referente al articulo 69-B")
             self.mensaje.set_content("No se ha encontrado publicación nueva referente al articulo 69-B") 
 
+            lbl5 = Label(text="Conectando al servidor SMTP")
+            lbl5.grid(row=1,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+            lbl6 = Label(text="Correo electrónico enviado con éxito")
+            lbl6.grid(row=2,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+
+            aparecer_gifs.aparecer_mensaje_5()
+            
             try:
                 server = smtplib.SMTP('smtp.office365.com', port=587)  
                 server.ehlo() 
                 server.starttls() 
-                print("Conectando al servidor SMTP")
+                #print("Conectando al servidor SMTP")
+
                 server.login(self.correo_remitente, self.contrasena_correo) 
                 server.send_message(self.mensaje) 
                 server.quit()
                 
-                print('Correo electronico enviado con exito')
+                #print('Correo electronico enviado con exito')
+
 
             except smtplib.SMTPException as e:
                 print ('Error al intentar enviar el correo electronico, cuasa del error: ', e)

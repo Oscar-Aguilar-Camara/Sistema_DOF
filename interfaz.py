@@ -47,7 +47,13 @@ root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
 # Finalmente bucle de la aplicación
 extraccion = extraccion()
 conexion_bd = conexion_bd()
+
+# destruir boton despues de cliquear
+def destruir_boton():
+    btn_ejecutar.destroy()
+
+
 # creamos boton de ejecutar 
-btn_ejecutar = Button(root, text="Ejecutar Servicio", command=lambda:[extraccion.acceso_web() , extraccion.buscar_69b(), extraccion.obtener_link(), extraccion.validar_pub_nva(), extraccion.notificacion_correo()])
+btn_ejecutar = Button(root, text="Ejecutar Servicio", command=lambda:[destruir_boton(),extraccion.acceso_web() , extraccion.buscar_69b(), extraccion.obtener_link(), extraccion.validar_pub_nva(), extraccion.notificacion_correo()])
 btn_ejecutar.place(x=300, y=200)
 root.mainloop()

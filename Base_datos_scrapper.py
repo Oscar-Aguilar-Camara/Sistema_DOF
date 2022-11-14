@@ -1,4 +1,6 @@
 import mysql.connector
+from tkinter import *
+from prueba_gifs import aparecer_gifs
 
 class conexion_bd():
     '''
@@ -14,7 +16,9 @@ class conexion_bd():
             )
             
         self.cursor = self.conexion.cursor()
-
+        lbl = Label(text="Conectando a la base de datos")
+        lbl.grid(row=1,column=1,padx=1, pady=4, ipadx=20,ipady=3)
+        aparecer_gifs.aparecer_mensaje_1()
 
     def close_connection(self):
         '''
@@ -24,8 +28,15 @@ class conexion_bd():
         self.conexion.commit()
         self.conexion.close()
         
-        print('Conexión a la base de datos cerrada exitosamente')
-        print("Proceso finalizado")
+        lbl2 = Label(text="Conexión a la base de datos cerrada")
+        lbl2.grid(row=4,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+
+        lbl3 = Label(text="Proceso finalizado")
+        lbl3.grid(row=5,column=3,padx=1, pady=4, ipadx=20,ipady=3)
+
+        aparecer_gifs.aparecer_mensaje_7()
+        
+        #print("Proceso finalizado")
 
 
     
