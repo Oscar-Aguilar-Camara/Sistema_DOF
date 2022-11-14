@@ -3,6 +3,8 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from itertools import count
 
+from extraccion_dof import extraccion
+
 class ImagenLabel(tk.Label):
     """creamos una label para meter el gif"""
     def cargar_gif(self, im):
@@ -47,7 +49,28 @@ root.resizable(width=0, height=0)
 # Se crea la barra de menú
 menubar = Menu(root)
 root.config(menu=menubar)
+
+filemenu = Menu(menubar, tearoff=0)
+# Crear comandos de los menus 
+filemenu.add_command(label="Configuración")
+filemenu.add_command(label="Monitoreo")
+filemenu.add_separator()
+filemenu.add_command(label="Salir", command=root.quit)
+
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label="Ayuda")
+helpmenu.add_separator()
+helpmenu.add_command(label="Acerca de...")
+# Agregamos los menus a la barra de menus 
+menubar.add_cascade(label="Opciones", menu=filemenu)
+menubar.add_cascade(label="Ayuda", menu=helpmenu)
+
+
+lbl1 = Label(root,text="nnn")
+
+lbl1.grid(row=2,column=3,padx=1, pady=4, ipadx=20,ipady=3)
 lbl = ImagenLabel(root)
-lbl.pack()
-lbl.cargar_gif("wow.gif") # nombre o ruta de la imagen
+lbl.grid(row=2,column=1,padx=1, pady=4, ipadx=2,ipady=3)
+
+lbl.cargar_gif("loading.gif") # nombre o ruta de la imagen
 root.mainloop()
