@@ -4,6 +4,13 @@ from tkinter import *
 
 
 class manipulacion_bd():
+    
+    def __init__(self):
+        self.palabra=""
+        
+    
+    
+    
     def consulta_links(self, lst_nva_pub, cont_link_dominio, lst_link_dominio):
         '''
         Función que hace la consulta de los links existentes en la Base de datos
@@ -31,9 +38,12 @@ class manipulacion_bd():
         conexion.close_connection()
 
 
-    def insertar_palabra_nueva():
+    def insertar_palabra_nueva(self, palabra):
+        self.palabra = palabra
         conexion = conexion_bd()
-        conexion.cursor.execute("INSERT INTO `lista_palabras` (`id`, `palabra`) VALUES (NULL,%(word)s)",{"word":"México"}) 
+        conexion.cursor.execute("INSERT INTO `lista_palabras` (`id`, `palabra`) VALUES (NULL,%(word)s)",{"word":self.palabra}) 
+        print (self.palabra)
         conexion.close_connection()
+    
 
   

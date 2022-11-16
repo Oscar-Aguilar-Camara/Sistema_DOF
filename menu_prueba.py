@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 from extraccion_dof import *
 from weber_dao import manipulacion_bd
-from funcion_agregar_palabra import agregar
+# from funcion_agregar_palabra import agregar
 
 
 ventana = tk.Tk()
@@ -33,7 +33,7 @@ def cambiar_dominio_web():
 
 # Evento botón aparecer lista de palabras
 def aparecer_lista():
-    combo=ttk.Combobox(ventana,values=wordlist)
+    combo=ttk.Combobox(ventana, values=wordlist)
     for index, word in enumerate (wordlist):
         combo.insert(index,word[1])
     combo.grid(row=0,column=1,padx=1, pady=6)
@@ -42,9 +42,16 @@ def aparecer_lista():
 
 
 def agregar_palabra():
-    agregar.creacion_label()
-    btn_confirmar=Button(ventana,text="Ok", command=lambda:[manipulacion_bd.insertar_palabra_nueva()])
+    # agregar.creacion_label()
+    # insertar = 
+    palabra= StringVar()
+    manipulacion = manipulacion_bd()
+    nva_palabra = Entry(ventana, bg="white", textvariable=palabra)
+    nva_palabra.grid(row=0,column=3,padx=1, pady=6, ipady=4, ipadx=8)
+    btn_confirmar=Button(ventana,text="Ok", command=lambda:[manipulacion.insertar_palabra_nueva(palabra.get()), aparecer_lista()])
     btn_confirmar.grid(row=0,column=4,padx=1, pady=6, ipady=4, ipadx=8)
+    
+
 
 
 # Establecimiento de la conexión a la base de datos
@@ -59,5 +66,7 @@ btn_cambiar_direccion.grid(row=1,column=0,padx=20, pady=20, sticky="w",ipady=6)
 
 btn_cambiar_dominio = Button(ventana,text="Cambiar dominio web ", command=cambiar_dominio_web)
 btn_cambiar_dominio.grid(row=2,column=0,padx=20, pady=20, sticky="w",ipady=6)
+
+
 
 ventana.mainloop()
