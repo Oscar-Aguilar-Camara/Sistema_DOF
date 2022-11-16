@@ -1,7 +1,6 @@
 import mysql.connector
 # from extraccion_dof import extraccion
-
-        
+   
 conexion=mysql.connector.connect(
 host='localhost',
 port='3306' ,
@@ -17,4 +16,3 @@ def consulta(conexion):
     conexion.close()
 
     return wordlist
-        
