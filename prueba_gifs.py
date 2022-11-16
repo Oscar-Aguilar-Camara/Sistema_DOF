@@ -42,6 +42,9 @@ class ImagenLabel(tk.Label):
 
 
 class aparecer_gifs():
+    '''
+    calse para gifs
+    '''
     def aparecer_mensaje_1():
         # cargamos gif loading
         label = ImagenLabel()
@@ -54,7 +57,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=1,column=2,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
     def aparecer_mensaje_2():
         # cargamos gif loading
@@ -68,7 +71,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=2,column=2,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
 
     def aparecer_mensaje_3():
@@ -81,7 +84,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=3,column=2,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
         # cargamos gif loading
         label4 = ImagenLabel()
@@ -92,7 +95,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=4,column=2,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
 
     def aparecer_mensaje_4():
@@ -105,7 +108,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=5,column=2,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
 
     def aparecer_mensaje_5():
@@ -118,7 +121,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=1,column=4,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
         
         # cargamos gif loading
         label7 = ImagenLabel()
@@ -129,7 +132,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=2,column=4,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
 
     def aparecer_mensaje_6():
@@ -142,7 +145,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=3,column=4,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
 
     def aparecer_mensaje_7():
@@ -155,7 +158,7 @@ class aparecer_gifs():
         #creamos imagen finalizado para la anterior funcion
         label_correcto = ImagenLabel()
         label_correcto.grid(row=4,column=4,padx=1, pady=4, ipadx=2,ipady=3)
-        label_correcto.cargar_gif("correcto.png") # nombre o ruta de la imagen
+        label_correcto.cargar_gif("correcto2.png") # nombre o ruta de la imagen
 
         # cargamos gif loading
         label10 = ImagenLabel()
