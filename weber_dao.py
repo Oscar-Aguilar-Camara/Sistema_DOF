@@ -8,7 +8,6 @@ class manipulacion_bd():
         '''
         Función que hace la consulta de los links existentes en la Base de datos
         '''
-    
         conexion = conexion_bd()  
         conexion.cursor.execute("SELECT * FROM `extraccion` WHERE link = %s;", (lst_link_dominio[cont_link_dominio],))
         self.valores = conexion.cursor.fetchall()
@@ -25,9 +24,16 @@ class manipulacion_bd():
         '''
         Función que inserta los link nuevos a la Base de datos
         '''
-   
         conexion = conexion_bd()  
         conexion.cursor.execute("INSERT INTO `extraccion` (`id`, `link`, `fecha`) VALUES (NULL,%(liga)s, %(fecha_actual)s)",{"liga":lst_nva_pub[cont_liga],"fecha_actual":today}) 
         # print("links que se insertan...")
         # print(lst_nva_pub[cont_liga])
         conexion.close_connection()
+
+
+    def insertar_palabra_nueva():
+        conexion = conexion_bd()
+        conexion.cursor.execute("INSERT INTO `lista_palabras` (`id`, `palabra`) VALUES (NULL,%(word)s)",{"word":"México"}) 
+        conexion.close_connection()
+
+  

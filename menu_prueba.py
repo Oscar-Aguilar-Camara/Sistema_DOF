@@ -1,8 +1,11 @@
 from tkinter import *
-from Base_datos_palabras import conexion, consulta
+from Base_datos_palabras import *
 import tkinter as tk
 from tkinter import ttk
 from extraccion_dof import *
+from weber_dao import manipulacion_bd
+from funcion_agregar_palabra import agregar
+
 
 ventana = tk.Tk()
 ventana.title("Configuración")
@@ -34,15 +37,21 @@ def aparecer_lista():
     for index, word in enumerate (wordlist):
         combo.insert(index,word[1])
     combo.grid(row=0,column=1,padx=1, pady=6)
-    btn_agregar=Button(ventana,text="Agregar")
+    btn_agregar=Button(ventana,text="Agregar", command=agregar_palabra)
     btn_agregar.grid(row=0,column=2,padx=1, pady=6, ipady=4, ipadx=8)
+
+
+def agregar_palabra():
+    agregar.creacion_label()
+    btn_confirmar=Button(ventana,text="Ok", command=lambda:[manipulacion_bd.insertar_palabra_nueva()])
+    btn_confirmar.grid(row=0,column=4,padx=1, pady=6, ipady=4, ipadx=8)
 
 
 # Establecimiento de la conexión a la base de datos
 wordlist = consulta(conexion)
 
 # Botones de configuración
-btn_consultar_palabras = Button(ventana,text="Palabras en lista", command=aparecer_lista)
+btn_consultar_palabras = Button(ventana,text="Ver palabras en lista", command=aparecer_lista)
 btn_consultar_palabras.grid(row=0,column=0,padx=20, pady=20, sticky="w",ipady=6)
 
 btn_cambiar_direccion = Button(ventana,text="Cambiar dirección web ", command=cambiar_direccion_web)
