@@ -105,3 +105,5 @@ class manipulacion_bd():
         conexion.close_connection()
     
         return nvo_url
+    
+    # print(url_usado())

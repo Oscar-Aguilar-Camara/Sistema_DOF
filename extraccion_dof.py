@@ -37,6 +37,10 @@ class extraccion():
     Clase que se utiliza para la extraccion de los links de la página del DOF
     '''
 
+    def __init__(self):
+        self.lst_nva_pub2=[]
+        
+        
     def acceso_web(self):
         '''
         Función que establece la conexion con la página,
@@ -46,12 +50,14 @@ class extraccion():
         lbl1.grid(row=2,column=1,padx=1, pady=4, ipadx=20,ipady=3)
         aparecer_gifs.aparecer_mensaje_2()
 
-        manipulacion = manipulacion_bd()
+        # manipulacion = manipulacion_bd()
         
 
-        #url = "https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0"
-
-        self.datos = urllib.request.urlopen(manipulacion.url_usado()).read().decode()
+        url = "https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0"
+        
+        url1 = manipulacion_bd.url_usado()
+        print(url1)
+        self.datos = urllib.request.urlopen(url).read().decode()
             
            
     def buscar_69b(self):
@@ -150,12 +156,12 @@ class extraccion():
         
         for ciclo in range(self.conteo):
             
-            lst_nva_pub = manipulacion_bd.consulta_links(self, self.lst_nva_pub, self.cont_link_dominio, lst_link_dominio)
+            self.lst_nva_pub2 = manipulacion_bd.consulta_links(self, self.lst_nva_pub, self.cont_link_dominio, lst_link_dominio)
             self.cont_link_dominio+=1
         
         #Insercion de valores en la base de datos
-        for ciclo in lst_nva_pub:
-            manipulacion_bd.insertar_links(self, lst_nva_pub, self.fecha_actual(), self.cont_lig)
+        for ciclo in self.lst_nva_pub2:
+            manipulacion_bd.insertar_links(self, self.lst_nva_pub2, self.fecha_actual(), self.cont_lig)
             self.cont_lig+=1
         
         
@@ -165,7 +171,7 @@ class extraccion():
         
 
         # Convertimos la lista de los links nuevos en cadena de texto
-        self.str_pubs_nva = ", \n ".join(lst_nva_pub)
+        self.str_pubs_nva = ", \n ".join(self.lst_nva_pub2)
         # print(f"links encontrados{self.str_pubs_nva}")
 
     def notificacion_correo(self):
@@ -188,7 +194,7 @@ class extraccion():
         self.mensaje['From'] = self.correo_remitente 
         self.mensaje['To'] = self.correo_receptor
                 
-        if bool(self.lst_nva_pub) == True:
+        if bool(self.lst_nva_pub2) == True:
             # Mensaje de texto que se enviará
             print(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}")
             self.mensaje.set_content(f"Se ha identificado una nueva publicación referente al artículo 69-B: \n{self.str_pubs_nva}") 
@@ -217,7 +223,7 @@ class extraccion():
             except smtplib.SMTPException as e:
                 print ('Error al intentar enviar el correo electronico, cuasa del error: ', e)
 
-        if bool(self.lst_nva_pub) == False:
+        if bool(self.lst_nva_pub2) == False:
             print("No se ha encontrado publicación nueva referente al articulo 69-B")
             self.mensaje.set_content("No se ha encontrado publicación nueva referente al articulo 69-B") 
 

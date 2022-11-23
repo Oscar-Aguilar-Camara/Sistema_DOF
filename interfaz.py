@@ -45,15 +45,15 @@ pheight = round(htotal/2-hventana/2)
 #  Se lo aplicamos a la geometría de la ventana
 root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
 # Finalmente bucle de la aplicación
-extraccion = extraccion()
+
 conexion_bd = conexion_bd()
 
 # destruir boton despues de cliquear
 def destruir_boton():
     btn_ejecutar.destroy()
 
-
+extraction = extraccion()
 # creamos boton de ejecutar 
-btn_ejecutar = Button(root, text="Ejecutar Servicio", command=lambda:[destruir_boton(),extraccion.acceso_web() , extraccion.buscar_69b(), extraccion.obtener_link(), extraccion.validar_pub_nva(), extraccion.notificacion_correo()])
+btn_ejecutar = Button(root, text="Ejecutar Servicio", command=lambda:[destruir_boton(),extraction.acceso_web() , extraction.buscar_69b(), extraction.obtener_link(), extraction.validar_pub_nva(), extraction.notificacion_correo()])
 btn_ejecutar.place(x=300, y=200)
 root.mainloop()
