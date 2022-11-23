@@ -12,11 +12,11 @@ class Aplicacion:
 
         urlist = manipulacion2.consulta2()
         self.opcion=tk.StringVar()
-        diassemana=(urlist)
+        links=(urlist)
         self.combobox1=ttk.Combobox(self.ventana1, 
                                   width=50, 
                                   textvariable=self.opcion, 
-                                  values=diassemana)
+                                  values=links)
         self.combobox1.current(0)
         self.combobox1.grid(column=0, row=1)
         
@@ -25,9 +25,9 @@ class Aplicacion:
         self.ventana1.mainloop()
 
     def recuperar(self):
-        sele = self.opcion.get()
+        seleccion = self.opcion.get()
         manipulacion = manipulacion_bd()
-        btn_confirmar=Button(self.ventana1,text="Ok", command=lambda:[manipulacion.editar_url_usado(sele)])
+        btn_confirmar=Button(self.ventana1,text="Ok", command=lambda:[manipulacion.editar_url_usado(seleccion)])
         btn_confirmar.grid(row=1,column=2,padx=1, pady=6, ipady=4, ipadx=8)
 
     
