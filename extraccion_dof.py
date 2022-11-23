@@ -45,14 +45,15 @@ class extraccion():
         lbl1 = Label(text="Conexion a la pagina web")
         lbl1.grid(row=2,column=1,padx=1, pady=4, ipadx=20,ipady=3)
         aparecer_gifs.aparecer_mensaje_2()
+
+        manipulacion = manipulacion_bd()
         
-        try:
-            self.datos = urllib.request.urlopen("https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0").read().decode()
+
+        #url = "https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0"
+
+        self.datos = urllib.request.urlopen(manipulacion.url_usado()).read().decode()
             
-        except urllib.error.URLerror as e:
-            print(f"Error al intentar acceder a la pagina web: {e}")
-            
-    
+           
     def buscar_69b(self):
         '''
         Función para transformar todo el HTML en un objeto de Beautiful Soup,

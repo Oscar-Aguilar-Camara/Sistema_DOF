@@ -9,8 +9,6 @@ class manipulacion_bd():
         self.palabra=""
         
     
-    
-    
     def consulta_links(self, lst_nva_pub, cont_link_dominio, lst_link_dominio):
         '''
         Función que hace la consulta de los links existentes en la Base de datos
@@ -38,6 +36,15 @@ class manipulacion_bd():
         conexion.close_connection()
 
 
+    def consulta(conexion):
+        conexion = conexion_bd() 
+        conexion.cursor.execute("SELECT `palabra` from lista_palabras;")
+        wordlist = conexion.cursor.fetchall()
+        conexion.cursor.close()
+        conexion.close_connection()
+        return wordlist
+
+
     def insertar_palabra_nueva(self, palabra):
         self.palabra = palabra
         conexion = conexion_bd()
@@ -46,4 +53,55 @@ class manipulacion_bd():
         conexion.close_connection()
     
 
-  
+    def consulta2(conexion):
+        conexion = conexion_bd() 
+        conexion.cursor.execute("SELECT `link` from cambio_link;")
+        wordlist = conexion.cursor.fetchall()
+        conexion.cursor.close()
+        conexion.close_connection()
+        return wordlist
+
+
+    def insertar_cambio_direccion(self, direccion):
+        self.direccion = direccion
+        conexion = conexion_bd()
+        conexion.cursor.execute("INSERT INTO `cambio_link` (`id`, `link`) VALUES (NULL,%(liga)s)",{"liga":self.direccion}) 
+        print (self.direccion)
+        conexion.close_connection()
+
+
+    
+    def consulta_link_nuevo(self):
+        conexion = conexion_bd()
+        conexion.cursor.execute("SELECT `link` FROM `cambio_link` WHERE id = 1;")
+        self.valores = conexion.cursor.fetchall()
+        print(self.valores)
+    
+    '''
+    def url_usado(self):
+        conexion = conexion_bd()
+        conexion.cursor.execute("SELECT `url` from url_en_uso WHERE id = 1;")
+        self.liga = conexion.cursor.fetchall()
+        #print(self.liga)
+    '''
+
+    def editar_url_usado(self, url_nuevo):
+        self.url_nuevo = url_nuevo
+        conexion = conexion_bd()
+        conexion.cursor.execute("UPDATE `url_en_uso` SET `url` = %(liga)s WHERE `url_en_uso`.`id` = 1;",{"liga":self.url_nuevo})
+        print (self.url_nuevo)
+        conexion.close_connection()
+
+
+    def url_usado():
+        conexion = conexion_bd()
+        conexion.cursor.execute("SELECT `url` from url_en_uso WHERE id = 1; ")
+        url = conexion.cursor.fetchall()
+        res = [str(x) for x in url]
+        chars = "('),"
+        nvo_url = ''.join( x for x in res if x not in chars)
+    
+        nvo_url = ''.join( x for x in nvo_url if x not in chars)
+        conexion.close_connection()
+    
+        return nvo_url
