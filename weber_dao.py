@@ -70,19 +70,28 @@ class manipulacion_bd():
         conexion.close_connection()
 
 
-    
+    def consulta3(conexion):
+        conexion = conexion_bd() 
+        conexion.cursor.execute("SELECT `dominio` from cambio_dominio;")
+        lista_dominios = conexion.cursor.fetchall()
+        conexion.cursor.close()
+        conexion.close_connection()
+        return lista_dominios
+
+
+    def insertar_cambio_dominio(self, dominio):
+        self.dominio = dominio
+        conexion = conexion_bd()
+        conexion.cursor.execute("INSERT INTO `cambio_dominio` (`id`, `dominio`) VALUES (NULL,%(dominio)s)",{"dominio":self.dominio}) 
+        print (self.dominio)
+        conexion.close_connection()
+
+    '''
     def consulta_link_nuevo(self):
         conexion = conexion_bd()
         conexion.cursor.execute("SELECT `link` FROM `cambio_link` WHERE id = 1;")
         self.valores = conexion.cursor.fetchall()
         print(self.valores)
-    
-    '''
-    def url_usado(self):
-        conexion = conexion_bd()
-        conexion.cursor.execute("SELECT `url` from url_en_uso WHERE id = 1;")
-        self.liga = conexion.cursor.fetchall()
-        #print(self.liga)
     '''
 
     def editar_url_usado(self, url_nuevo):
@@ -100,10 +109,46 @@ class manipulacion_bd():
         res = [str(x) for x in url]
         chars = "('),"
         nvo_url = ''.join( x for x in res if x not in chars)
-    
         nvo_url = ''.join( x for x in nvo_url if x not in chars)
         conexion.close_connection()
-    
         return nvo_url
-    
-    # print(url_usado())
+
+        
+    def editar_palabra_usada(self, palabra_nueva):
+        self.palabra_nueva = palabra_nueva
+        conexion = conexion_bd()
+        conexion.cursor.execute("UPDATE `palabra_actual` SET `palabra` = %(palabra)s WHERE `palabra_actual`.`id` = 1;",{"palabra":self.palabra_nueva})
+        print (self.palabra_nueva)
+        conexion.close_connection()
+
+
+    def palabra_usada():
+        conexion = conexion_bd()
+        conexion.cursor.execute("SELECT `palabra` from `palabra_actual` WHERE id = 1; ")
+        palabra = conexion.cursor.fetchall()
+        res = [str(x) for x in palabra]
+        chars = "('),"
+        nva_palabra = ''.join( x for x in res if x not in chars)
+        nva_palabra = ''.join( x for x in nva_palabra if x not in chars)
+        conexion.close_connection()
+        return nva_palabra
+
+
+    def editar_dominio_usado(self, dominio_nuevo):
+        self.dominio_nuevo = dominio_nuevo
+        conexion = conexion_bd()
+        conexion.cursor.execute("UPDATE `dominio_en_uso` SET `dominio` = %(dominio)s WHERE `dominio_en_uso`.`id` = 1;",{"dominio":self.dominio_nuevo})
+        print (self.dominio_nuevo)
+        conexion.close_connection()
+
+
+    def dominio_usado():
+        conexion = conexion_bd()
+        conexion.cursor.execute("SELECT `dominio` from `dominio_en_uso` WHERE id = 1; ")
+        dominio = conexion.cursor.fetchall()
+        res = [str(x) for x in dominio]
+        chars = "('),"
+        nvo_dominio = ''.join( x for x in res if x not in chars)
+        nvo_dominio = ''.join( x for x in nvo_dominio if x not in chars)
+        conexion.close_connection()
+        return nvo_dominio

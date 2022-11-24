@@ -22,13 +22,12 @@ def cambio_direccion():
 
 # Evento clic botón cambiar dominio web
 def cambiar_dominio_web():
-    manipulacion = manipulacion_bd()
-    cuadro_texto2=Entry(ventana,bg="white")
-    cuadro_texto2.grid(row=2,column=1,padx=1, pady=4, ipadx=20,ipady=3)
-    cambio_dominio=cuadro_texto2.get()
-    r=str(cambio_dominio)
-    btn_guardar2=Button(ventana,text="Guardar", command=lambda:[manipulacion.consulta_link_nuevo()])
-    btn_guardar2.grid(row=2,column=2,padx=1, pady=6, ipady=4, ipadx=8)
+    dominio= StringVar()
+    manipulacion = manipulacion_bd()   
+    nva_dominio=Entry(ventana,bg="white",textvariable=dominio)
+    nva_dominio.grid(row=2,column=2,padx=1, pady=4, ipadx=20,ipady=3) 
+    btn_guardar=Button(ventana,text="Guardar",command=lambda:[nva_dominio.destroy(),btn_guardar.destroy(),manipulacion.insertar_cambio_dominio(dominio.get())])
+    btn_guardar.grid(row=2,column=3,padx=1, pady=6, ipady=4, ipadx=8)
     
 
 # Evento botón aparecer lista de palabras

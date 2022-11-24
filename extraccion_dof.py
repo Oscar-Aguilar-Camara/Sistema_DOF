@@ -39,6 +39,7 @@ class extraccion():
 
     def __init__(self):
         self.lst_nva_pub2=[]
+        self.keyword = ''
         
         
     def acceso_web(self):
@@ -51,12 +52,12 @@ class extraccion():
         aparecer_gifs.aparecer_mensaje_2()
 
         # manipulacion = manipulacion_bd()
-        
-
-        url = "https://www.dof.gob.mx/index_111.php?year=2022&month=10&day=11#gsc.tab=0"
-        
+             
         url1 = manipulacion_bd.url_usado()
+<<<<<<< HEAD
         print(url1)
+=======
+>>>>>>> 097488d5c37a5bc2d6d7c78f7bd4dad1ecf1e209
         self.datos = urllib.request.urlopen(url1).read().decode()
             
            
@@ -69,7 +70,8 @@ class extraccion():
         self.soup = BeautifulSoup(self.datos, 'lxml')
         self.box = self.soup.find('tr',id="trcontent")
         self.resultado = self.box.find_all('a',class_='enlaces')
-        self.palabra = re.findall(r'69-B', str(self.resultado))
+        self.keyword = manipulacion_bd.palabra_usada()
+        self.palabra = re.findall(self.keyword, str(self.resultado))
         
         lbl2 = Label(text="Obteniendo código fuente")
         lbl2.grid(row=3,column=1,padx=1, pady=4, ipadx=20,ipady=3)
@@ -83,8 +85,7 @@ class extraccion():
         #Contar elementos
         self.transforma = ", ".join(map(str, self.palabra))
         self.conteo = len(self.transforma.split())
-        
-        
+
 
 
     def obtener_link(self):
@@ -112,7 +113,7 @@ class extraccion():
             
         #Resguarda especialmente los links en donde se encuentre la palabra 69-B en una lista -lst_69B[]        
         for Pos_info in self.resultado:
-            encuentra = re.findall(r'69-B', str(Pos_info))
+            encuentra = re.findall(self.keyword, str(Pos_info))
             if bool(encuentra)==True:
                 PosLink = self.lst_links[x]
                 self.lst_69B.append(PosLink)
@@ -124,7 +125,8 @@ class extraccion():
             cadena = Textlink[0]
             characters = "[]'"
             cadena = ''.join( x for x in cadena if x not in characters)
-            cal='https://www.dof.gob.mx'+cadena
+            dominio = manipulacion_bd.dominio_usado()
+            cal=dominio+cadena
             lst_link_dominio.append(cal)
             print(cal)
         
