@@ -12,7 +12,7 @@ class conexion_bd():
             host='localhost',
             port='3306' ,
             user='root' ,
-            db='scraper2'
+            db='scraper'
             )
             
         self.cursor = self.conexion.cursor()
