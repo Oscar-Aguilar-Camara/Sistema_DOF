@@ -57,7 +57,7 @@ class extraccion():
         
         url1 = manipulacion_bd.url_usado()
         print(url1)
-        self.datos = urllib.request.urlopen(url).read().decode()
+        self.datos = urllib.request.urlopen(url1).read().decode()
             
            
     def buscar_69b(self):
