@@ -51,6 +51,14 @@ class manipulacion_bd():
         conexion.cursor.execute("INSERT INTO `lista_palabras` (`id`, `palabra`) VALUES (NULL,%(word)s)",{"word":self.palabra}) 
         print (self.palabra)
         conexion.close_connection()
+
+
+    def eliminar_palabra(self, palabra):
+        self.palabra = palabra
+        conexion = conexion_bd()
+        conexion.cursor.execute("DELETE FROM `lista_palabras` WHERE `lista_palabras`.`palabra` = (%(word)s)",{"word":self.palabra}) 
+        print ("Se eliminó correctamente la palabra: "+self.palabra)
+        conexion.close_connection()
     
 
     def consulta2(conexion):
@@ -70,6 +78,14 @@ class manipulacion_bd():
         conexion.close_connection()
 
 
+    def eliminar_direccion(self, direccion):
+        self.direccion = direccion
+        conexion = conexion_bd()
+        conexion.cursor.execute("DELETE FROM `cambio_link` WHERE `cambio_link`.`link` = (%(url)s)",{"url":self.direccion}) 
+        print ("Se eliminó correctamente la dirección: "+self.direccion)
+        conexion.close_connection()
+
+
     def consulta3(conexion):
         conexion = conexion_bd() 
         conexion.cursor.execute("SELECT `dominio` from cambio_dominio;")
@@ -84,6 +100,14 @@ class manipulacion_bd():
         conexion = conexion_bd()
         conexion.cursor.execute("INSERT INTO `cambio_dominio` (`id`, `dominio`) VALUES (NULL,%(dominio)s)",{"dominio":self.dominio}) 
         print (self.dominio)
+        conexion.close_connection()
+
+
+    def eliminar_dominio(self, dominio):
+        self.dominio = dominio
+        conexion = conexion_bd()
+        conexion.cursor.execute("DELETE FROM `cambio_dominio` WHERE `cambio_dominio`.`dominio` = (%(domain)s)",{"domain":self.dominio}) 
+        print ("Se eliminó correctamente la dirección: "+self.dominio)
         conexion.close_connection()
 
     '''

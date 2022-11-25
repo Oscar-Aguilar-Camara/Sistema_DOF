@@ -18,7 +18,7 @@ class Aplicacion:
                                   values=links)
         self.combobox1.current(0)
         self.combobox1.grid(column=0, row=1)
-        self.boton1=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton1.destroy(),self.recuperar()])
+        self.boton1=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton1.destroy(),self.recuperar(), self.eliminar3()])
         self.boton1.grid(column=0, row=2)    
 
 
@@ -32,7 +32,7 @@ class Aplicacion:
                                   values=palabras)
         self.combobox2.current(0)
         self.combobox2.grid(column=0, row=4)
-        self.boton2=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton2.destroy(),self.recuperar1()])
+        self.boton2=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton2.destroy(),self.recuperar1(), self.eliminar()])
         self.boton2.grid(column=0, row=5) 
 
 
@@ -46,7 +46,7 @@ class Aplicacion:
                                   values=dominios)
         self.combobox3.current(0)
         self.combobox3.grid(column=0, row=7)
-        self.boton3=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton3.destroy(),self.recuperar2()])
+        self.boton3=tk.Button(self.ventana1, text="Elegir", command=lambda:[self.boton3.destroy(),self.recuperar2(), self.eliminar2()])
         self.boton3.grid(column=0, row=8)  
         self.ventana1.mainloop()
 
@@ -71,5 +71,25 @@ class Aplicacion:
         btn_confirmar3=Button(self.ventana1,text="Ok", command=lambda:[manipulacion.editar_dominio_usado(seleccion2)])
         btn_confirmar3.grid(row=1,column=17,padx=1, pady=6, ipady=4, ipadx=8)
 
+
+    def eliminar(self):
+        seleccion1 = self.opcion1.get()
+        manipulacion = manipulacion_bd()
+        btn_confirmar2=Button(self.ventana1,text="Eliminar", command=lambda:[manipulacion.eliminar_palabra(seleccion1)])
+        btn_confirmar2.grid(row=5,column=10,padx=1, pady=6, ipady=4, ipadx=8)
+
+
+    def eliminar2(self):
+        seleccion2 = self.opcion2.get()
+        manipulacion = manipulacion_bd()
+        btn_confirmar2=Button(self.ventana1,text="Eliminar", command=lambda:[manipulacion.eliminar_dominio(seleccion2)])
+        btn_confirmar2.grid(row=5,column=7,padx=1, pady=6, ipady=4, ipadx=8)
+
+
+    def eliminar3(self):
+        seleccion3 = self.opcion.get()
+        manipulacion = manipulacion_bd()
+        btn_confirmar2=Button(self.ventana1,text="Eliminar", command=lambda:[manipulacion.eliminar_direccion(seleccion3)])
+        btn_confirmar2.grid(row=5,column=24,padx=1, pady=6, ipady=4, ipadx=8)
 
 aplicacion1=Aplicacion()
