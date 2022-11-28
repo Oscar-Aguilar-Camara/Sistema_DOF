@@ -54,10 +54,9 @@ class extraccion():
         # manipulacion = manipulacion_bd()
              
         url1 = manipulacion_bd.url_usado()
-<<<<<<< HEAD
+
         print(url1)
-=======
->>>>>>> 097488d5c37a5bc2d6d7c78f7bd4dad1ecf1e209
+        
         self.datos = urllib.request.urlopen(url1).read().decode()
             
            
